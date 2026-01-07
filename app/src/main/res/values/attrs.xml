@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorMainBack" format="color" />
+    <attr name="colorSecondary" format="color" />
+    <attr name="colorButton" format="color" />
+
+    <attr name="colorButtonMainOut" format="color"/>
+    <attr name="colorButtonMainInner" format="color"/>
+    <attr name="colorButtonMainBack" format="color" />
+
+    <attr name="textColorMain" format="color" />
+    <attr name="textColorSecondary" format="color" />
+</resources>

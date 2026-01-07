@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="white">#FFF</color>
+    <color name="m_white">#F7F7F7</color>
+    <color name="black">#000</color>
+    <color name="m_black">#222</color>
+
+    <color name="l_dark">#2a2a2a</color>
+    <color name="l_button">#f1f1f1</color>
+
+    <color name="d_button">#3a3a3a</color>
+    <color name="d_dark">#1a1a1a</color>
+
+    <color name="l_button_stroke">#a2a2a2</color>
+    <color name="l_button_figure">#6e6e6e</color>
+    <color name="l_button_back">#FFFFFF</color>
+
+    <color name="d_button_stroke">#5d5d5d</color>
+    <color name="d_button_figure">#808080</color>
+    <color name="d_button_back">#202020</color>
+
+    <color name="gray">#727272</color>
+    <color name="red">#FA2323</color>
+</resources>

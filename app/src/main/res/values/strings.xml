@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="agree">I\'m agree</string>
+    <string name="camera_warn">Camera permission is denied. Please allow use of camera in settings by yourself. </string>
+    <string name="settings">Go to settings</string>
+</resources>
