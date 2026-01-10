@@ -7,7 +7,7 @@ Simple Gemini client for Android 8+ devices based on WebView.
 ## disclaimer
 **important:** this app is **NOT** official Google product. **Gemini** is trademark of **Google LLC**.
 just third-party tool made for fun and learning. dev isn't associated with "corporation of good" in any way. 
-it's not nicking your data — feel free to dig into code and see for yourself.
+it's not nicking your data. feel free to dig into code and see for yourself.
 
 ## what's the deal?
 does exactly same stuff as original Google Play client. no more, no less.
