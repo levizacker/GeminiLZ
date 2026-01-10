@@ -11,16 +11,16 @@ android {
         applicationId = "com.levizack.gemini"
         minSdk = 26
         targetSdk = 34
-        versionCode = 3
-        versionName = "GitHub 1.0"
+        versionCode = 4
+        versionName = "GitHub 1.0.1 Release"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = false
-            isShrinkResources = false
+            isMinifyEnabled = true /* changed from false in version 1.0.1 (sorry im tired making that at 4 am) */
+            isShrinkResources = true /* changed from false in version 1.0.1 (sorry im tired making that at 4 am) */
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
@@ -38,5 +38,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
+    implementation("androidx.core:core-splashscreen:1.0.1") /* added in version 1.0.1 (sorry im tired making that at 4 am) */
+    implementation("androidx.webkit:webkit:1.15.0") /* added in version 1.0.1 (sorry im tired making that at 4 am) */
 }
 

@@ -21,4 +21,7 @@
 
     <color name="gray">#727272</color>
     <color name="red">#FA2323</color>
+
+    <color name="icl_fore">#000000</color>
+    <color name="icl_back">#FFFFFF</color>
 </resources>

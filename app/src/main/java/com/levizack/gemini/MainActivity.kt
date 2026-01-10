@@ -39,20 +39,24 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import java.io.File
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen /* ADDED IN VERSION 1.0.1 */
+import androidx.webkit.WebSettingsCompat /* ADDED IN VERSION 1.0.1 */
+import androidx.webkit.WebViewFeature /* ADDED IN VERSION 1.0.1 */
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
     private var fileCallback: ValueCallback<Array<Uri>>? = null
     private var tempImageUri: Uri? = null
+    private var isReady = false /* ADDED IN VERSION 1.0.1 */
 
-    // Handling multiple document selection from the file system
+    // Handling multiple document selection from file system
     private val selectFileLauncher = registerForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris ->
         fileCallback?.onReceiveValue(if (uris.isNullOrEmpty()) null else uris.toTypedArray())
         fileCallback = null
     }
 
-    // Handling image capture from the camera
+    // Handling image capture fom camera
     private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         if (success && tempImageUri != null) {
             fileCallback?.onReceiveValue(arrayOf(tempImageUri!!))
@@ -66,7 +70,10 @@ class MainActivity : AppCompatActivity() {
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setTheme(R.style.AppTheme)
+        /* ADDED IN VERSION 1.0.1 */
+        installSplashScreen()
+        val splashScreen = installSplashScreen()
+
         super.onCreate(savedInstanceState)
 
         // Enabling edge-to-edge display and setting transparent status bar
@@ -90,13 +97,21 @@ class MainActivity : AppCompatActivity() {
 
         setupWebView()
 
-        // Load the URL only if there is no saved state (to prevent reload on rotation)
+        // Load URL only if there's no saved state (to prevent reload on rotation)
         if (savedInstanceState == null) {
             webView.loadUrl("https://gemini.google.com")
         }
 
         // Requesting camera permission on startup for Gemini's vision features
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
+
+        /* ADDED IN VERSION 1.0.1 */
+        splashScreen.setKeepOnScreenCondition {
+            !isReady
+        }
+        rootLayout.postDelayed({
+            isReady = true
+        }, 1000)
     }
 
     @SuppressLint("SetJavaScriptEnabled")
@@ -118,7 +133,16 @@ class MainActivity : AppCompatActivity() {
         // Preventing insecure content issues
         s.mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
 
-        // Modifying User-Agent to bypass "browser not supported" errors by removing 'wv' tag
+        /* ADDED IN VERSION 1.0.1 */
+        if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
+            WebSettingsCompat.setForceDark(s, WebSettingsCompat.FORCE_DARK_OFF)
+        }
+
+        if (WebViewFeature.isFeatureSupported("ALGORITHMIC_DARKENING")) {
+            WebSettingsCompat.setAlgorithmicDarkeningAllowed(s, false)
+        }
+
+        // Modifying User-Agent to bypass "browser not supported" errors by removing "w" tag
         val defaultUA = s.userAgentString
         s.userAgentString = defaultUA.replace("; wv)", ")").replace("Version/4.0 ", "")
 
@@ -127,25 +151,25 @@ class MainActivity : AppCompatActivity() {
         }
 
         webView.webChromeClient = object : WebChromeClient() {
-            // Triggered when Gemini requests a file (e.g., uploading an image)
+            // triggering when Gemini request a file chooser
             override fun onShowFileChooser(wv: WebView?, cb: ValueCallback<Array<Uri>>?, p: FileChooserParams?): Boolean {
                 fileCallback?.onReceiveValue(null)
                 fileCallback = cb
 
-                // Creating a temporary file for the camera capture
+                // creating temp file for camera capture
                 val photoFile = File(externalCacheDir, "temp_camera_photo.jpg")
                 tempImageUri = FileProvider.getUriForFile(this@MainActivity, "${packageName}.provider", photoFile)
 
                 if (p?.isCaptureEnabled == true) {
                     takePictureLauncher.launch(tempImageUri)
                 } else {
-                    // Launching file picker with support for images, PDFs, and text
-                    selectFileLauncher.launch(arrayOf("image/*", "application/pdf", "text/*"))
+                    // /* REDACTED IN VERSON 1.0.1: */ launching file picker with support for ALL files instead of just images, pdf etc.
+                    selectFileLauncher.launch(arrayOf("*/*"))
                 }
                 return true
             }
 
-            // Granting web permissions (like camera/mic) when requested by the site
+            // Granting web permissions (e.g. camera/mic) when requested by site
             override fun onPermissionRequest(request: PermissionRequest?) {
                 request?.grant(request.resources)
             }
@@ -163,7 +187,7 @@ class MainActivity : AppCompatActivity() {
         webView.restoreState(bundle)
     }
 
-    // Handling the hardware back button to navigate within WebView history
+    // Handling back button to navigate within WebView history
     override fun onBackPressed() {
         if (::webView.isInitialized && webView.canGoBack()) {
             webView.goBack()

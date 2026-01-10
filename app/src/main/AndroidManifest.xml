@@ -23,12 +23,13 @@
         android:label="Gemini LZ"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-        android:usesCleartextTraffic="true">
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true"> <!-- UPDATED IN VERSION 1.0.1 -->
 
         <activity
             android:name=".MainActivity"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Starting"> <!-- ADDED IN VERSION 1.0.1 -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

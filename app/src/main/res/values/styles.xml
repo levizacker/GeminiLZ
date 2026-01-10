@@ -7,10 +7,14 @@
 
         <item name="colorMainBack">@color/m_white</item>
 
-        <item name="textColorMain">@color/m_black</item>
-
         <item name="colorAccent">@color/black</item>
-        <item name="colorControlActivated">@color/black</item>
 
+        <item name="textColorMain">@color/m_black</item>
+    </style>
+    <!-- added in 1.0.1 -->
+    <style name="Theme.AppCompat.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/icl_back</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/avd_launcher</item>
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
     </style>
 </resources>

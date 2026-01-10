@@ -3,10 +3,14 @@
     android:height="100dp"
     android:viewportWidth="100"
     android:viewportHeight="100">
-  <path
-      android:pathData="M49.98,20.85A29.13,29.13 0,0 1,20.85 49.98,29.13 29.13,0 0,1 49.98,79.05 29.13,29.13 0,0 1,79.05 49.98,29.13 29.13,0 0,1 49.98,20.85Z"
-      android:strokeWidth="0"
-      android:fillColor="#ffffff"
-      android:strokeColor="#00000000"/>
+    <group
+        android:name="group1"
+        android:pivotX="50"
+        android:pivotY="50">
+        <path
+        android:pathData="M49.98,20.85A29.13,29.13 0,0 1,20.85 49.98,29.13 29.13,0 0,1 49.98,79.05 29.13,29.13 0,0 1,79.05 49.98,29.13 29.13,0 0,1 49.98,20.85Z"
+        android:fillColor="@color/icl_fore"/>
+    </group>
     <!-- на самом деле, я просто сделал четыре круга поверх квадрата, обрезал их и получилось это. разумеется в инкскейпе. -->
+    <!-- а саму анимацию делал вбивая ручками текст в студии... кста, у меня порванные трусы :) -->
 </vector>
