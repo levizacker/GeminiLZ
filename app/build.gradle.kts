@@ -11,8 +11,8 @@ android {
         applicationId = "com.levizack.gemini"
         minSdk = 26
         targetSdk = 34
-        versionCode = 4
-        versionName = "GitHub 1.0.1 Release"
+        versionCode = 5
+        versionName = "GitHub 1.0.2 Release"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }

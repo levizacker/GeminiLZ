@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- DELETED WRITE_EXTERNAL_STORAGE IN VERSION 1.0.2 -->
 
     <application
         android:allowBackup="true"
@@ -23,8 +23,7 @@
         android:label="Gemini LZ"
         android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true"> <!-- UPDATED IN VERSION 1.0.1 -->
+        android:theme="@style/AppTheme"> <!-- UPDATED IN VERSION 1.0.1 && DELETED usesCleartextTraffic="true" IN VERSION 1.0.2 -->
 
         <activity
             android:name=".MainActivity"

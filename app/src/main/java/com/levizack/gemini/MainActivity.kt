@@ -147,7 +147,22 @@ class MainActivity : AppCompatActivity() {
         s.userAgentString = defaultUA.replace("; wv)", ")").replace("Version/4.0 ", "")
 
         webView.webViewClient = object : WebViewClient() {
-            // Standard WebViewClient; SSL error handling removed for security reasons
+            /* ADDED IN 1.0.2 */
+            override fun onPageFinished(view: WebView?, url: String?) {
+                super.onPageFinished(view, url)
+                val nightModeFlags = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
+                if (nightModeFlags == android.content.res.Configuration.UI_MODE_NIGHT_YES) {
+                    webView.evaluateJavascript(
+                        "document.documentElement.style.setProperty(\"color-scheme\", \"dark\");",
+                        null
+                    )
+                } else {
+                    webView.evaluateJavascript(
+                        "document.documentElement.style.setProperty(\"color-scheme\", \"light\");",
+                        null
+                    )
+                }
+            }
         }
 
         webView.webChromeClient = object : WebChromeClient() {
