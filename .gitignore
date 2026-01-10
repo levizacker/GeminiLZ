@@ -10,3 +10,5 @@ out/
 local.properties
 *.log
 DS_Store
+app/debug/
+app/release/
