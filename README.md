@@ -10,4 +10,4 @@ developer is not affiliated with Google and does not act on their behalf.
 all AI responses and content are provided by the official Gemini web service.
 the app doesnt collect any data about you or your account, you can verify this by viewing the source code.
 
-distributed under the license.
+distributed under the MIT license.
