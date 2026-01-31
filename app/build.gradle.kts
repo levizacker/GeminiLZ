@@ -40,4 +40,5 @@ dependencies {
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
     implementation("androidx.core:core-splashscreen:1.0.1")
     implementation("androidx.webkit:webkit:1.15.0")
+    implementation("com.google.firebase:protolite-well-known-types:18.0.1")
 }

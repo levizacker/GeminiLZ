@@ -1,29 +1,3 @@
-/*
-
-MIT License
-
-Copyright (c) 2026 levizack
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
-
-*/
-
 package com.levizack.gemini
 
 import android.Manifest
@@ -39,16 +13,19 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import java.io.File
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen /* ADDED IN VERSION 1.0.1 */
-import androidx.webkit.WebSettingsCompat /* ADDED IN VERSION 1.0.1 */
-import androidx.webkit.WebViewFeature /* ADDED IN VERSION 1.0.1 */
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.webkit.WebSettingsCompat
+import androidx.webkit.WebViewFeature
+import java.util.Locale
+import java.text.SimpleDateFormat
+import java.util.Date
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var webView: WebView
     private var fileCallback: ValueCallback<Array<Uri>>? = null
     private var tempImageUri: Uri? = null
-    private var isReady = false /* ADDED IN VERSION 1.0.1 */
+    private var isReady = false
 
     // Handling multiple document selection from file system
     private val selectFileLauncher = registerForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris ->
@@ -70,8 +47,6 @@ class MainActivity : AppCompatActivity() {
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        /* ADDED IN VERSION 1.0.1 */
-        installSplashScreen()
         val splashScreen = installSplashScreen()
 
         super.onCreate(savedInstanceState)
@@ -104,8 +79,6 @@ class MainActivity : AppCompatActivity() {
 
         // Requesting camera permission on startup for Gemini's vision features
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
-
-        /* ADDED IN VERSION 1.0.1 */
         splashScreen.setKeepOnScreenCondition {
             !isReady
         }
@@ -142,7 +115,7 @@ class MainActivity : AppCompatActivity() {
             WebSettingsCompat.setAlgorithmicDarkeningAllowed(s, false)
         }
 
-        // Modifying User-Agent to bypass "browser not supported" errors by removing "w" tag
+        // Modifying User-Agent to bypass "browser not supported" errors by removing "wм" (aka "webview") tag
         val defaultUA = s.userAgentString
         s.userAgentString = defaultUA.replace("; wv)", ")").replace("Version/4.0 ", "")
 
@@ -166,23 +139,30 @@ class MainActivity : AppCompatActivity() {
         }
 
         webView.webChromeClient = object : WebChromeClient() {
-            // triggering when Gemini request a file chooser
             override fun onShowFileChooser(wv: WebView?, cb: ValueCallback<Array<Uri>>?, p: FileChooserParams?): Boolean {
                 fileCallback?.onReceiveValue(null)
                 fileCallback = cb
 
-                // creating temp file for camera capture
-                val photoFile = File(externalCacheDir, "temp_camera_photo.jpg")
+                val southCanada = "US" // :)
+                val locale = Locale.getDefault()
+                val pattern = if (locale.country == southCanada) "MMddyyyy_HHmmssSSS" else "ddMMyyyy_HHmmssSSS"
+
+                val formatter = SimpleDateFormat(pattern, locale)
+                val dateString = formatter.format(Date())
+
+                val fileName = "${dateString}.jbg.jpg" // srpski vibe+ 8)
+                val photoFile = File(externalCacheDir, fileName)
+
                 tempImageUri = FileProvider.getUriForFile(this@MainActivity, "${packageName}.provider", photoFile)
 
                 if (p?.isCaptureEnabled == true) {
                     takePictureLauncher.launch(tempImageUri)
                 } else {
-                    // /* REDACTED IN VERSON 1.0.1: */ launching file picker with support for ALL files instead of just images, pdf etc.
                     selectFileLauncher.launch(arrayOf("*/*"))
                 }
                 return true
             }
+
 
             // Granting web permissions (e.g. camera/mic) when requested by site
             override fun onPermissionRequest(request: PermissionRequest?) {
