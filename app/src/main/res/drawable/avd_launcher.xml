@@ -1,0 +1,7 @@
+<!-- added in 1.0.1 -->
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/icl_anim">
+    <target
+        android:name="group1"
+        android:animation="@anim/splash_anim" />
+</animated-vector>

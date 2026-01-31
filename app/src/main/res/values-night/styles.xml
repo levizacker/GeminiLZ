@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <item name="colorMainBack">@color/l_dark</item>
+
+        <item name="colorAccent">@color/white</item>
+
+        <item name="textColorMain">@color/m_white</item>
+    </style>
+    <!-- added in 1.0.1 -->
+    <style name="Theme.AppCompat.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/icl_back</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/avd_launcher</item>
+        <item name="postSplashScreenTheme">@style/AppTheme</item>
+    </style>
+</resources>

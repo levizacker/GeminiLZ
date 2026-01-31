@@ -1,0 +1,16 @@
+<!-- added in 1.0.1 -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="100dp"
+    android:height="100dp"
+    android:viewportWidth="166"
+    android:viewportHeight="166">
+    <group
+        android:name="group1"
+        android:pivotX="83"
+        android:pivotY="83">
+        <path
+            android:fillColor="@color/icl_fore"
+            android:pathData="M82.98,53.85A29.13,29.13 0,0 1,53.85 82.98,29.13 29.13,0 0,1 82.98,112.05 29.13,29.13 0,0 1,112.05 82.98,29.13 29.13,0 0,1 82.98,53.85Z" />
+    </group>
+    <!-- и да, это просто копия ic_launcher_fore, но немного меньше чтобы она влезла в рамки анимации :D -->
+</vector>

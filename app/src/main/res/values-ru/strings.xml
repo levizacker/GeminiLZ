@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="agree">Я согласен(на)</string>
+    <string name="camera_warn">Разрешение на камеру было отклонено. Разрешите ее использование в настройках.</string>
+    <string name="settings">Перейти в настройки</string>
+</resources>
