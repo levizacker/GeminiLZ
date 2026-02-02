@@ -27,13 +27,13 @@ class MainActivity : AppCompatActivity() {
     private var tempImageUri: Uri? = null
     private var isReady = false
 
-    // Handling multiple document selection from file system
+    // handling multiple document selection from file system
     private val selectFileLauncher = registerForActivityResult(ActivityResultContracts.OpenMultipleDocuments()) { uris ->
         fileCallback?.onReceiveValue(if (uris.isNullOrEmpty()) null else uris.toTypedArray())
         fileCallback = null
     }
 
-    // Handling image capture fom camera
+    // handling image capture fom camera
     private val takePictureLauncher = registerForActivityResult(ActivityResultContracts.TakePicture()) { success ->
         if (success && tempImageUri != null) {
             fileCallback?.onReceiveValue(arrayOf(tempImageUri!!))
@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
         fileCallback = null
     }
 
-    // Simple permission requester for camera access
+    // permission requester for camera access
     private val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,12 +51,12 @@ class MainActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
 
-        // Enabling edge-to-edge display and setting transparent status bar
+        // enabling edge-to-edge display and setting transparent status bar
         WindowCompat.setDecorFitsSystemWindows(window, false)
         window.statusBarColor = Color.TRANSPARENT
         setContentView(R.layout.activity_main)
 
-        // Adjusting padding to prevent content from being hidden behind system bars
+        // adjusting padding to prevent content from being hidden behind system bars
         val rootLayout = findViewById<androidx.constraintlayout.widget.ConstraintLayout>(R.id.main_root)
         ViewCompat.setOnApplyWindowInsetsListener(rootLayout) { view, windowInsets ->
             val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
@@ -66,18 +66,18 @@ class MainActivity : AppCompatActivity() {
 
         webView = findViewById(R.id.gemini_webview)
 
-        // Configuring cookies to ensure persistent login sessions
+        // configuring cookies to ensure persistent login sessions
         CookieManager.getInstance().setAcceptCookie(true)
         CookieManager.getInstance().setAcceptThirdPartyCookies(webView, true)
 
         setupWebView()
 
-        // Load URL only if there's no saved state (to prevent reload on rotation)
+        // load url only if theres no saved state (to prevent reload on rotation)
         if (savedInstanceState == null) {
             webView.loadUrl("https://gemini.google.com")
         }
 
-        // Requesting camera permission on startup for Gemini's vision features
+        // requesting camera permission on startup for geminis vision features and something like that
         requestPermissionLauncher.launch(Manifest.permission.CAMERA)
         splashScreen.setKeepOnScreenCondition {
             !isReady
@@ -91,7 +91,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupWebView() {
         val s = webView.settings
 
-        // Basic web settings for modern web apps
+        // basic web settings for modern web apps
         s.javaScriptEnabled = true
         s.domStorageEnabled = true
         s.allowFileAccess = true
@@ -99,14 +99,13 @@ class MainActivity : AppCompatActivity() {
         s.loadWithOverviewMode = true
         s.useWideViewPort = true
 
-        // Caching settings to improve performance and save traffic
+        // caching settings to improve performance and save traffic
         s.cacheMode = WebSettings.LOAD_DEFAULT
         s.databaseEnabled = true
 
-        // Preventing insecure content issues
+        // preventing insecure content issues
         s.mixedContentMode = WebSettings.MIXED_CONTENT_COMPATIBILITY_MODE
 
-        /* ADDED IN VERSION 1.0.1 */
         if (WebViewFeature.isFeatureSupported(WebViewFeature.FORCE_DARK)) {
             WebSettingsCompat.setForceDark(s, WebSettingsCompat.FORCE_DARK_OFF)
         }
@@ -115,12 +114,11 @@ class MainActivity : AppCompatActivity() {
             WebSettingsCompat.setAlgorithmicDarkeningAllowed(s, false)
         }
 
-        // Modifying User-Agent to bypass "browser not supported" errors by removing "wм" (aka "webview") tag
+        // modifying User-Agent to bypass "browser not supported" errors by removing "wм" (aka "webview") tag
         val defaultUA = s.userAgentString
         s.userAgentString = defaultUA.replace("; wv)", ")").replace("Version/4.0 ", "")
 
         webView.webViewClient = object : WebViewClient() {
-            /* ADDED IN 1.0.2 */
             override fun onPageFinished(view: WebView?, url: String?) {
                 super.onPageFinished(view, url)
                 val nightModeFlags = resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK
@@ -137,6 +135,8 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        // TODO: nothing, thats just most fun part :)
 
         webView.webChromeClient = object : WebChromeClient() {
             override fun onShowFileChooser(wv: WebView?, cb: ValueCallback<Array<Uri>>?, p: FileChooserParams?): Boolean {
@@ -164,14 +164,14 @@ class MainActivity : AppCompatActivity() {
             }
 
 
-            // Granting web permissions (e.g. camera/mic) when requested by site
+            // granting web permissions (e.g. camera/mic) when requested by site
             override fun onPermissionRequest(request: PermissionRequest?) {
                 request?.grant(request.resources)
             }
         }
     }
 
-    // Saving and restoring WebView state to handle orientation changes gracefully
+    // saving and restoring WebView state to handle orientation changes gracefully
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         webView.saveState(outState)
@@ -182,7 +182,7 @@ class MainActivity : AppCompatActivity() {
         webView.restoreState(bundle)
     }
 
-    // Handling back button to navigate within WebView history
+    // handling back button to navigate within WebView history
     override fun onBackPressed() {
         if (::webView.isInitialized && webView.canGoBack()) {
             webView.goBack()
