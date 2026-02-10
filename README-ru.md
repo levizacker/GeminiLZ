@@ -1,6 +1,6 @@
-# Gemini LZ
+# Gemion
 
-простой клиент Gemini для устройств Android 8+ на базе WebView.
+простой клиент Gemini для устройств Android 8+ на базе WebView
 
 ---
 
