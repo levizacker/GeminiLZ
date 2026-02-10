@@ -1,6 +1,6 @@
-# Gemini LZ
+# Gemion
 
-Simple Gemini client for Android 8+ devices based on WebView.
+simple Gemini client for Android 8+ devices, based on WebView.
 
 ---
 
@@ -41,12 +41,12 @@ does exactly same stuff as original Google Play client. no more, no less.
 
    <img width="300" alt="Final Install" src="https://github.com/user-attachments/assets/ceb094be-0a9f-4789-951e-69d621362da4" />
 
-   easy peasy.
+   yea thats it
 
 ---
 
 ## how to change theme
-i've got bit of bug where site thinks i'm on dark mode even when light mode is on (i usually use dark mode, so dont start throwing shade at me). if you don't want to get flashbanged every time you open app, follow these steps...
+i've got bit of bug where site thinks i'm on dark mode even when light mode is on (i usually use dark mode, so dont start throwing shade at me), if you don't want to get flashbanged every time you open app, follow these steps...
 
 1. open app. yeah, i know, tough start, but try to keep up.
 
